@@ -33,7 +33,7 @@ distclean: spotless
 distclean_modules: clean_modules spotless
 
 services:  $(OBJS) mod_version
-	$(CC) $(CFLAGS) $(OBJS) $(ANOPELIBS) $(MLIBS) -o $@ $(LDFLAGS) 
+	$(CC) -lcrypt $(CFLAGS) $(OBJS) $(ANOPELIBS) $(MLIBS) -o $@ $(LDFLAGS) 
 
 $(OBJS): Makefile
 actions.o:      actions.c   $(INCLUDES)
