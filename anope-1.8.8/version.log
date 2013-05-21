@@ -1,0 +1,373 @@
+# (C) 2003-2013 Anope Team
+# Contact us at team@anope.org
+#
+# Please read COPYING and README for further details.
+#
+
+VERSION_MAJOR="1"
+VERSION_MINOR="8"
+VERSION_PATCH="8"
+VERSION_EXTRA=""
+VERSION_BUILD="3112"
+
+# Leading up to 1.8.8 Release
+#Revision 3110 - Added japanese language support, patch provided by Ryuunosuke Ayanokouzi
+#Revision 3109 - Do not allow invalid nicknames to be forbidden in ns_forbid
+#Revision 3108 - Bug #1474 - Fixed setting umodes on BotServ bots on Unreal3.2.10
+#Revision 3106 - Replaced experimental Hybrid 7.0 support by Hybrid 8.0 support. (Patch provided by Hybrid Development Team)
+#Revision 3105 - Added french language support to some modules (patch provided by Coolsmile)
+#Revision 3104 - Updated the Polish language file
+#Revision 3103 - Updated .gitignore
+#Revision 3102 - Cleanup many compile warnings from make and make strict
+#Revision 3101 - Use base 10 for strtol() in the config parser to prevent numbers beginning with 0 from confusing it
+#Revision 3100 - Fix typo in NICK_SASET_MSG_SYNTAX
+#Revision 3098 - Made all module functions static to fix OSX's linker from linking modules with similar function names to each other
+#Revision 3097 - Do not apply akills or sxlines that are pending expiration
+#Revision 3096 - Fixed crash when InspIRCd sends user MODE changes for users that don't exist
+#Revision 3095 - Fixed crash with cs_enforce and registered empty permanent channels
+#Revision 3094 - Bug #1380 - Do not allow akill masks to end in @
+#Revision 3093 - Fixed several grammar errors in docs/ (patch provided by Simba)
+#Revision 3092 - Updated Copyright to 2012
+#Revision 3091 - Bug #1369 - Fixed os_svsnick to allow changing the case of a users' nick
+
+
+
+# Leading up to 1.8.7 Release
+#Revision 3088 - Implemented API support for the SVSJOIN and SVSPART commands on UltimateIRCd 3.
+#Revision 3087 - Fixed some typos in the spanish language file
+#Revision 3086 - Fixed ignore not matching against users' real host or IP (introduced in rev. 3049).
+#Revision 3085 - Use vident instead of ident in combination with the vhost for botserv kick(ban)s and nickserv access list checking.
+#Revision 3084 - Match bans against the vident/vhost instead of real ident/vhost when available.
+#Revision 3083 - Use _exit, not exit, to exit mail forks to prevent our atexit() functions from being called, and removing our pidfile
+#Revision 3082 - Made os_sxline and os_akill use a stored value to curent time to prevent the off-chance of time changing while executing the function which can mess up our globops/log messages
+#Revision 3081 - Added event to warn modules a nickcore gets a new display nick or is about to be dropped. (This should enable modules to more easily link their data to anopes core data.)
+#Revision 3080 - Send DROP event when forbidding nicks and channels, if applicable.
+#Revision 3079 - Bug #1318 - #1320 - Added support for Hybrid's +S and +O channel modes, and removed support for +a
+#Revision 3078 - Fixed loading bs_fantasy_owner on startup when using InspIRCd 2.0
+#Revision 3077 - Bug #1287 - Fixed chan_set_correct_modes to not deop the first user from syncing servers
+#Revision 3076 - Bug #1269 - Fixed install.js for Windows 7 builds.
+#Revision 3075 - Fixed a potential crash in the badwords kicker, and fixed matching BW_SINGLE with BSCaseSensitive enabled
+#Revision 3074 - Bug #1273 - Fixed removing vhosts on InspIRCd when m_cloaking is unloaded 
+
+
+
+
+# Leading up to 1.8.6 Release
+#Revision 3071 - Removed atheme2anope database converter as its out of date
+#Revision 3070 - Bug #1236 - Fixed crash in enc_md5 on Mac
+#Revision 3069 - Bug #1263 - Fixed /ns REGISTER not getting an "unknown cmd" reply when ns_register is not loaded & ns_maxemail is loaded. (Bug cannot be structurally fixed, needs to be addressed by 3rd party module authors for similar situations.)
+#Revision 3068 - Added events for module loading/unloading and command creation/deletion. Enables modules expanding on other modules to adjust hooks if needed. - Related to bug #1263.
+#Revision 3067 - Fixed bug #1252 - The group display nick showing in HS req memos instead of the requesting alias. Also cleaned up the mess in Changes...
+#Revision 3066 - Added support m_services.c and m_change.c from Hybrid's contrib folder
+#Revision 3065 - Change to users masked host instead of the real one after turning vhost off in inspircd.
+#Revision 3063 - Fixed opping our clients on ratbox when TS6 is not used.
+#Revision 3062 - Do not show SENDPASS in NickServ and ChanServ help to users who can't use it
+#Revision 3061 - Rejoin our clients if kicked on TS6 IRCDs and made ratbox protocol module use account tracking
+#Revision 3060 - Fixed bug 1248, an error in fr.l - reported by SaKa
+#Revision 3059 - Fixed the wiki URLs in install.js
+#Revision 3058 - Fixed not introducing our clients with usermode +k on InspIRCd 2.0
+#Revision 3057 - Bug #1233 - Fixed some misuse of apostrophes - patch by binki
+#Revision 3056 - Bug #1227 - Fixed 'make install' recompiling src/tools
+#Revision 3055 - Do not allow services opers to send one person more than 32767 memos
+#Revision 3054 - Enable NICKIP for InspIRCd 1.2+
+#Revision 3053 - Some more copyright/typo fixes, spotted by chaz :P
+#Revision 3052 - Updated Copyright to 2011
+#Revision 3051 - Made the moduleGetData debug messages for level 2+
+#Revision 3050 - Remove vhost requests from nicks that expire
+#Revision 3049 - Bug #1079 - Prevent /cs ban, akick, unban, etc, from matching against users real hostname and IPs in an attempt to prevent unauthorized users from gaining other users IPs via brute force attacks.
+#Revision 3048 - Bug #1213 - Fixed /cs enforce #channel to say SET was enforced not (null)
+#Revision 3047 - Fixed some warnings found by cppcheck
+#Revision 3046 - Fixed bug #1202 - Made Anope aware of plexus3's channel mode +z
+#Revision 3045 - Fixed some improper english in the HOST_GROUP language strings
+#Revision 3044 - Fixed a potential crash from accessing invalid memory after unbanning people when checking whether a host is akick stuck. Fixes /cs unban not reapplying stuck ban masks.
+#Revision 3043 - Fixed /nickserv saset display to change the nicktracking of the users affected by it, not the user executing it
+#Revision 3042 - Fixed /nickserv group to use nicktracking if enabled
+#Revision 3041 - Rewrote the mail forking code to use pipes, sometimes mails wouldn't work with the old method
+#Revision 3040 - Fixed configure failing on some systems which have a partial MySQL installation
+#Revision 3039 - Fixed db-merger handling some hostserv collisions
+#Revision 3038 - Initialise git for 1.8-git
+
+
+
+
+# Leading up to 1.8.5 Release
+#Revision 3036 - Various windows build scripts fixes and to include ns_noop_convert & os_ignore_db.dll in builds
+#Revision 3035 - Fixed InspIRCd 1.1,1.2 and 2.0 protocol modules to oper pseudo-clients only when needed.
+#Revision 3034 - Fixed comments in insp20 protocol module to be accepted by all supported compilers.
+#Revision 3031 - Added InspIRCd 2.0 support
+#Revision 3030 - Fixed do_sjoin to properly find the server source on TS6 IRCds
+#Revision 3029 - Fixed InspIRCd1.2 protocol module passing invalid users in the SJOIN string which made internal debug messages confusing/wrong
+#Revision 3028 - We tell everyone to use 127.0.0.1 instead of localhost, so we should too.
+#Revision 3027 - Kill users using our nicks when on InspIRCd 1.2
+#Revision 3026 - Updated german language file
+#Revision 3025 - Added in mail forking for operating systems that support it
+#Revision 3023 - Fixed minor wording error, and bumped version log from last commit
+#Revision 3022 - Removed \'s that appeared in kick message when BSGentleBWReason isn't used
+#Revision 3021 - Removed Example.confs DefSessionLimit's reference to accepting 0, it doesn't.
+#Revision 3020 - Fixed bug #1180 - Fixed tracking of internal clients when they change nicks on TS6 IRCds
+#Revision 3019 - Properly track users hosts when a user is -x and has a vhost via chghost
+#Revision 3018 - Accommodate for the InspIRCd 2.0 protocol being even more oversized then we previously thought..
+#Revision 3017 - Log out super admins when someone forces them to logout
+#Revision 3016 - Fixed a potential crash from receiving a very long FMODE from InspIRCd
+#Revision 3015 - Allow clearing of access lists while in XOP mode
+#Revision 3014 - Increased command buffer size. Insp 2.0 has a bigger appetite it seems..
+#Revision 3012 - Removed enc_encrypt_in_place, it is unnecessary and it can easially be used improperly
+#Revision 3010 - Encrypt very long passwords properly on /ns and /cs register
+#Revision 3009 - Fixed charybdis and ratbox protocol modules not (properly) translating TS6 UIDs into nicks on kills.
+#Revision 3007 - Removed all references to the SVN keyword $Id$
+#Revision 3006 - Set all of the core modules versions to VERSION_STRING - SVN is now officially not used anymore
+#Revision 3005 - Fixed ./Config to correctly load the previously used settings from config.cache
+#Revision 3003 - Grab users cloaked hosts on Unreal after setting +x, fixes us never knowing cloaked hosts if the user is introduced with a vhost
+#Revision 3000 - Never unset mod_current_module in functions that modules might call, instead save the old values and reset them
+#Revision 2999 - Moved EVENT_CHANGE_NICK call to after anope_cmd_nc_change() call. Added user identified check to validate_user() to prevent identified user being told to identify.
+#Revision 2993 - Fixed db-mergers handling of bot collisions
+#Revision 2991 - Fixed a crash on shutdown when running Anope on Mac
+#Revision 2981 - Fixed SQUITing juped servers on InspIRCd 1.2
+#Revision 2978 - Added param to EVENT_CHANGE_NICK for old nickname
+#Revision 2976 - Added internal events called when nick is ghosted and when nick is recovered
+#Revision 2969 - Extension to r2952 adding logging for BS BOT
+#Revision 2966 - Fixed English in e-mail messages
+#Revision 2962 - Fixed bug with r2952 (%s was used rather than %d)
+#Revision 2952 - Added a tonne of alog()s to log all stateful commands
+#Revision 2950 - Added support for building with Microsoft Visual Studio 2010 and removed support for Microsoft Visual Studio 98
+#Revision 2947 - Fixed a memory leak and use of uninitialized values in unreal_jointhrottle_mode_check. Note we don't even use this function currently.
+#Revision 2946 - Fixed bug #1161 - Fixed setting expiry times on akills in the atheme2anope database converter
+#Revision 2943 - Added an Atheme to Anope database converter
+#Revision 2935 - Fixed unloading modules commands, fixes a crash introduced by the last commit
+#Revision 2931 - Always set mod_current_module and mod_current_module_name, fixes a few of the functions in modules.c relying on it.
+#Revision 2930 - Print an error if the TS6 SID isn't set/is set incorrectly, most people don't know how to work logfiles
+#Revision 2929 - Added an internal event called when a nick is requested
+#Revision 2918 - Fixed deleting nick requests to only delete the requested nick
+#Revision 2903 - Removed some unnecessary redundant code in cs_clear
+#Revision 2900 - Fixed /ns info to show when a nick expires to services opers, not only admins
+#Revision 2899 - Fixed missing SID on FJOIN in InspIRCd12 protocol module
+#Revision 2896 - Fixed bug #1153 - Always save channel topics internally, even if the new topic matches the last saved topic
+#Revision 2895 - Fixed bug #1154 - Fixed a potential crash in cs_clear ops
+#Revision 2894 - Check if a command routine exists before all command calls
+#Revision 2893 - Closed a forgotten file pointer in os_info that would make Windows backups of os_info.db fail
+
+# Leading up to 1.8.4 Release
+#Revision 2855 - Don't save databases when rehashed or shutdown from anoperc when in readonly mode
+#Revision 2854 - Small change to the win32 makefile to use Config.bat rather than install.js after spotless.
+#Revision 2843 - Fixed catserv module demo to work correctly on TS6 IRCds
+#Revision 2842 - Fixed bug #1149 - Number memos in MySQL correctly
+#Revision 2841 - Fixed bugs #1146 and #1147 - Fixed check_modes to only apply defcon settings when defcon is actually on
+#Revision 2840 - Fixed bug #1144 - replaced some strcpy calls with strscpy to be safer
+#Revision 2837 - Log deleting and clearing XOP access lists
+#Revision 2836 - Document usage of the -protocoldebug option in services help
+#Revision 2834 - Removed some unused functions from extern.h and changed docs/IRCD to not tell lies
+#Revision 2821 - Fixed bug #1143 - Fixed a blind sprintf in sighandler that would write an error message to unallocated memory
+#Revision 2819 - Fixed a bug introduced in r2667 that could cause some access entries to not convert to XOP correctly
+#Revision 2818 - Fixed bug #1141, reordered some access checks in cs_kick and cs_modes to hide who is on the channel
+#Revision 2816 - Fixed os_info to display syntax errors if you entered no text
+#Revision 2815 - Fixed os_info to backup its databases properly with the now-working ModuleDatabaseBackup function
+#Revision 2811 - Fixed bug #1140 - Made ModuleDatabaseBackup() not fail when multiple modules want to back up their databases
+#Revision 2810 - Fixed bug #1139 - Delete the correct nicks from hs_request database when they are dropped
+#Revision 2809 - Fixed bug #1138 - Fix maximum hostname length checking in hs_request
+#Revision 2808 - Fixed check_ban to apply bans even if TTB was changed after the user has been kicked
+#Revision 2807 - Added support for tracking permanent channels
+#Revision 2801 - Fixed some memory leaks in ns_register
+#Revision 2800 - Fixed a bug that would cause users access in channels to seemingly disappear. Introduced in release 1.8.3, revision 2667
+#Revision 2792 - Documented /nickserv list's ability to accept ranges
+#Revision 2791 - Don't show unconfirmed nicks when services admins list suspended nicks
+#Revision 2787 - Fixed it so halfops can not be marked as forcibly deopped, fixes us sometimes undoing all modes by some halfops
+#Revision 2774 - Bump Changes versions to 1.8-SVN & credit for tr.l
+
+# Leading up to 1.8.3 Release
+#Revision 2770 - Updated docs/INSTALL with some more upto date information
+#Revision 2769 - Updated docs/IRCD to be up to date
+#Revision 2768 - Another attempt at making the makefile understand
+#Revision 2767 - Fix small omission in src/tools/Makefile
+#Revision 2766 - Small documentation update
+#Revision 2761 - Don't kick or ban ulined clients for flood etc
+#Revision 2747 - Fixed a reply in bs_bot to be correct when you use an invalid ident
+#Revision 2743 - Fix a crash introduced in r2679 cause by is_on_access messing up the users host buffers
+#Revision 2735 - Added two missing language strings to de.l and ru.l
+#Revision 2734 - Made elist_match_user also check against the users cloaked host
+#Revision 2731 - Mark users as unrecognized on Inspircd 1.2 if no/invalid metadata is recieved for them before the next uid/eob
+#Revision 2730 - Fixed typo in inspircd12.h causing 2 modes to use the same bit.
+#Revision 2727 - Fixed a few SASET help replies to reply to services opers, and fixed the rest to not reply to anyone who requests help
+#Revision 2726 - Fixed help system to use notice_help instead of notice_lang (bug from r2473)
+#Revision 2712 - Fixed loading of nickcore access lists from SQL to always set nickcores accesscount to the real amount of entries
+#Revision 2679 - Fixed bug #1106 - Anope now keeps track of users cloaked hosts as well as virtual host and will use both in matching for things
+#Revision 2671 - Fix bug #1114. Fixed a bug in cs_clear caused by do_cmode() modifying params passed to it. Also fixed some warnings in cs_xop.
+#Revision 2668 - Fix a few more XOP related problems.
+#Revision 2667 - Cleaned up a lot of the channel access reordering code, properly change users with less than voice access on channels to XOP, and fix a potential crashbug after switching to XOP on IRCds that do not support halfop
+#Revision 2601 - All usermodes are now recognized and properly set internally on Insp 1.2.
+#Revision 2598 - More dynamic detection of channel modes on InspIRCd 1.2. Also fixes params being linked to the wrong mode.
+#Revision 2571 - Fixed small typo in dutch translation.
+#Revision 2550 - Removed proxy server from ulined servers in example config as more people use a client proxy scanner and this should reduce occurences of user servers being listed.
+#Revision 2546 - Reset errno before calling strtol in bs_kick, it would sometimes not allow valid kick settings to work
+#Revision 2545 - Now send the QUIT command before changing bots internally for /botserv bot change, so InspIRCd 1.2 (and possibly others) can get the UID and other info from the bot
+#Revision 2544 - Fixed the NICK command syntax on InspIRCd 1.2 to work when changing clients nicknames
+#Revision 2543 - Fixed crash when juping servers on InspIRCd 1.2
+#Revision 2542 - Fixed remote whoises on services clients on InspIRCd 1.2
+#Revision 2537 - Added InspIRCd 1.2 protocol module into Windows makefiles and installer scripts
+#Revision 2536 - Added InspIRCd 1.2 protocol module.
+#Revision 2535 - Added option for delayed pseudo-client introduction. (Required for Insp 1.2)
+#Revision 2534 - Added ability to mark users as either ID'd or UNID'd after user introduction. This is the responsibility of the protocol module! (Required for Insp 1.2)
+#Revision 2533 - Backport of r2531, reset +r on registered channels after a netmerge when our creation time is newer than what we recieved.
+#Revision 2525 - Fix bug #1097. CS FORBID now clears excepts & invites before banning everyone to avoid rejoin floods.
+#Revision 2511 - Updated French language file, patch from Saka
+#Revision 2495 - Fixed a number of TS6 issues, mainly related to nicks instead of IDs being given to anope_cmd_mode() in combination with a status change (Bug #1096). Also Fixed a small bug in os_oline.
+#Revision 2491 - Fixed typo in install.js so it will correctly detect MySQL 5.1 on Windows
+#Revision 2485 - Fixed MLOCK locked mode removal getting priority over DEFCON locked mode setting.
+#Revision 2480 - Fixed defcon not setting modes on newly created unregged channels and failing to force remove defcon-locked modes. 
+#Revision 2479 - Updated German language file
+#Revision 2477 - Corrected help replies for /operserv HELP *NEWS to say services admin is always required
+#Revision 2475 - Clarified installing of PSDK for windows installation requirements in Win32.txt
+#Revision 2474 - Updated docs/README to include real help for incorporating new languages into builds
+#Revision 2473 - Made help system fall back to the highest help string available instead of giving "no help" to services opers everywhere
+#Revision 2472 - Show services opers /nickserv help saset
+#Revision 2471 - Fixed a bug in help to show /chanserv help (un)suspend and /nickserv help (un)suspend to services operators
+#Revision 2448 - Updated Turkish language file
+#Revision 2406 - Fixed possible segfault introduced by TS6 fix in rev. 2401.
+#Revision 2402 - Fixed do_server() so it doesn't go nuts if a SID is the source. Added some sanity checks and debug output as well.
+#Revision 2401 - Added forgotten entries to version.log and Changes, some code cleanup and fixed a few minor TS6 issues.
+#Revision 2400 - Fixed some memory leaks when setting vhosts on users.
+#Revision 2398 - Fixed a TS6 bug in chan_set_modes() causing restrictions such as secureops to fail if the IRCd sends UUIDs instead of nicks.
+#Revision 2397 - Fixed a bug in UMODE causing anope to send an extra umode change as a channel mode change.
+#Revision 2395 - Added german language support to hs_request.c. Patch provided by Han.
+#Revision 2394 - Updated german language file. Update provided by Han.
+
+# Leading up to 1.8.2 Release
+#Revision 2364 - Fix a crash when mysql is used without MysqlSecure defined. Thanks to jerrcs for finding and testing.
+#Revision 2362 - Fix unsetting founder_chans when logging out other users
+
+# Leading up to 1.8.1 Release
+#Revision 2337 - Fixed several bugs in messages.c regarding parsing TS6 encoded commands. This is a prerequisite for an InspIRCd 1.2 protocol module.
+#Revision 2329 - Update to allow windows build to function with the removal of inspircd10.c
+#Revision 2327 - Fix memory leak in NS SUSPEND, patch by Adam.
+#Revision 2325 - Added a few missing entries to Changes.
+#Revision 2322 - Bugfix for bug #1082, remove check for NSModeOnID from NS UPDATE, it's not logical to check for NSModeOnID since you must be identified to use NS UPDATE anyways.
+#Revision 2321 - Fix potential crash in Charybdis protocol module, patch by Adam.
+#Revision 2316 - Change default of UnRestrictSAdmin to enabled, so hopefully we get less users complaining about their +a being removed and being unable to use /sa* commands.
+#Revision 2307 - [#1081] - Fixing CS HELP output to not imply you can invite anyone bar yourself into a channel.
+#Revision 2301 - Change sizeof() to strlen() in db_mysql_secure(), patch by DukePyrolator.
+#Revision 2299 - Fix bug #1078, MySQL query should no longer fail when password and salt are too long, patch from Adam.
+#Revision 2297 - Patch to allow jupe on all bar uplink and self. Thanks Adam. (Bug #1076)
+#Revision 2294 - Fix link to Link Block Generator on our site. Good find whoever it was :)
+#Revision 2293 - Patch from DukeP - founderstatus (gained by /cs identify) is not removed on logout, and on remote logout the nicktracking and the timers are removed from the wrong user (u instead of u2). Cheers! :)
+#Revision 2289 - Backport from 1.9 to document the use of /ms set notify mail and nomail (Adam)
+#Revision 2287 - Patch to rectify Syntax output from langfiles and update certain modules to use syntax_error rather than notice_lang. (Adam)
+#Revision 2284 - Don't enfoce akick/forbidden/etc.. settings on clients on ulined servers.
+#Revision 2272 - Backport of r2271, remove files from the modules runtime directory on startup, just in case files were left behind during a previous run.
+#Revision 2262 - Patch to update documentation on CS RESTRICTED to reflect historical behaviour.
+#Revision 2253 - Backport of bugfix for bug #1004 from SVN r2003, Modechanges from ulined server are no longer being blocked by SECUREOPS.
+#Revision 2251 - Fixed non-standard C-style comment.
+#Revision 2250 - Updated example.conf regarding removal of the inspirc10 protocol module and SRA requirement for SuperAdmin.
+#Revision 2249 - Someone seems to have forgotten about Changes.. added most significant commits to Changes.
+#Revision 2245 - Backport of bugfix for bug #1050 from SVN r2163, patch from Adam, MS STAFF's syntax shows correctly, required adding a language string as well, currently they are all English until they can be properly translated.
+#Revision 2240 - Fix compile error with inspircd11 module.
+#Revision 2221 - Modified patch to change vhost removal to work correctly in all cases, originally by Szymek.
+#Revision 2220 - Correctly initialise variables in jointhrottle check, noted by Szymek.
+#Revision 2219 - Remove insp1.0 protocol modules. 1.0 has been unsupported by upstream for a very long time, and they contain a number of bugs since fixed in the 1.1 module.
+#Revision 2218 - Backport of bugfix for bug #1073 from SVN r2217, fantasy commands in CTCP ACTIONS will now be ignored instead of processed.
+#Revision 2199 - Correct backport of bug #1064, patch from DukePyrolator, there is no nc on the User struct in 1.8.x, use nickTrack instead, oops.
+#Revision 2196 - Backport of bugfix for bug #1044 from SVN r2195, CS SET MLOCK no longer requires a parameter, and leaving out the parameter renders the mlock to +r as it should be.
+#Revision 2193 - Backport of bugfix for bug #1065 from SVN r2192, original patch from DukePyrolator, force a user off a nick when it is suspended.
+#Revision 2189 - Backport of bugfix for bug #1064 from SVN r2188, original patch from DukePyrolator, fixes NS RECOVER so it doesn't display "(null)" in some places.
+#Revision 2187 - Backport of bugfix for bug #1062 from SVN r2185 and 2186, patch from Adam, BS ASSIGN, BS ACT, and BS SAY should no longer send revealing error messages to users without access.
+#Revision 2182 - Fix memleak in channels.c from DukePyrolator. (Same fix applied to 1.9 earlier). Thanks DP!
+#Revision 2181 - Backport of bugfix for bug #1043 from SVN r2178, patch from Adam, CS LIST will no longer show suspended channels to normal users.
+#Revision 2180 - Backport of bugfix for bug #1030 from SVN r2179, patch from Adam, deleting from the channel access list now logs a message about the deleted items.
+#Revision 2175 - #1054 Backported fix from 1.9 to hide password in log/logchan whilst user is ignored.
+#Revision 2166 - Patch from DukePyrolator to log an entry for when NSMemoReceipt isn't defined in the config.
+#Revision 2152 - Backport of bugfix for bug #1025 from SVN r2148, the message for "no such entry" should show whatever was passed in to the command, not -1 every time.
+#Revision 2151 - Backport of bugfix for bug #1020 from SVN r2150, read and write the mlock for flood and redirect regardless of the IRCd's setting for the mode.
+#Revision 2145 - Applied adams patch for re-ordering lists
+#Revision 2132 - Backport of fix from r2131, inspircd11 module should send the current timestamp, not the timestamp that the akill was set at.
+#Revision 2127 - Backport fix in sgets which lacked FD_ZERO() call before FD_SET().
+#Revision 2110 - Fix compile caused by careless backport, thanks DP.
+#Revision 2024 - Backport: Correctly lower TS (if the ircd provided it) on reciept of JOIN messages. This fixes dropped mode changes coming from services on TS6 (and TS6-alike) ircds for channels where TS is dropped elsewhere on the network.
+#Revision 2023 - Backport from 1.9.1 - inspircd11: Pass chants in JOIN message to not blow away timestamps.
+#Revision 1946 - Patch by Adam fixing #1006 (originally caused by #922): modes set by ChanServ are reversed. Thanks!
+#Revision 1943 - Applied patch by mooncup to re-apply the cloaked host when using /hs off for unreal32 
+#Revision 1941 - Giving credits for +j support..
+#Revision 1940 - Bug 1001: Added support for internal tracking of +j channel mode (throttling).
+#Revision 1937 - Manual backport of r1935 / 183bf6525b84: check noexpire/readonly in expire_all(), otherwise stuff will get expired on shutdown.
+#Revision 1936 - Don't allow an empty ident when reading HS vident. Rob, this needs review before I want to push it to SVN.
+#Revision 1926 - Backport of fix for bug 1000, do not allow a nick to be grouped if the IRCd protocol deems the nick invalid.
+#Revision 1924 - Fixed check for backtrace() in configure.
+#Revision 1923 - Initialized 1.8 SVN. & Fixed MySQL dumping failing on unsafe queries. [Bug #994]
+#Revision 1915 - Update install.js with correct url for windows build help links.
+#Revision 1913 - More housekeeping contact address updates.
+#Revision 1912 - Update copyright & contact information within files.
+#
+#
+# Leading up to 1.8.0 Release
+#
+# BUILD : 1.8.0 (1899)
+# BUGS  :
+# NOTES : 1.8.0 Release
+#
+# BUILD : 1.8.0 (1896)
+# BUGS  :
+# NOTES : Updated VERSION_BUILD to SVN as opposed to implying full release
+#
+# BUILD : 1.8.0 (1860)
+# BUGS  :
+# NOTES : Updated src/core/Makefile.win32 to include the building of enc_sha1.c
+#
+# BUILD : 1.8.0 (1859)
+# BUGS  :
+# NOTES : Updated Windows Installer build script files (.nsi) to include enc_sha1.dll.
+#
+# BUILD : 1.8.0 (1854)
+# BUGS  :
+# NOTES : Archived version.log to version.log.old for pre Sourceforge SVN revisions and archived docs/NEWS to docs/OLDNEWS
+#
+# BUILD : 1.8.0 (1853)
+# BUGS  :
+# NOTES : Updated some documentation for 1.8 release.
+#
+# BUILD : 1.8.0 (1852)
+# BUGS  : 
+# NOTES : Manually updated version.log to reflect changes since migration to Sourceforge SVN.
+#
+# BUILD : 1.8.0 (1850)
+# BUGS  : 966
+# NOTES : Fixed crashbug in db-merger.
+#
+# BUILD : 1.8.0 (1845)
+# BUGS  : 966
+# NOTES : Backport better fix for umode +d bug.
+#
+# BUILD : 1.8.0 (1832)
+# BUGS  : 970
+# NOTES : Implemented MySQL fixes from patch supplied in bug #970
+#
+# BUILD : 1.8.0 (1827)
+# BUGS  : 966
+# NOTES : Fixed improper tracking of 'd' usermode on UnrealIRCd.
+#
+# BUILD : 1.8.0 (1826)
+# BUGS  : 966
+# NOTES : Set proper svn:keywords on the entire 1.8 repository.. now modules should return a decent version reply again.
+#
+# BUILD : 1.8.0 (1825)
+# BUGS  : 973
+# NOTES : Fixed ChanServ setting +ntsi when akicking a user from an otherwise empty channel. Those modes are legit when kicking from a forbidden/suspended channel, but shouldn't block users from joining regular chans.
+#
+# BUILD : 1.8.0 (1824)
+# BUGS  : 
+# NOTES : Fixed session count being decremented twice on NickServ GHOST.
+#
+# BUILD : 1.8.0 (1754)
+# BUGS  : 
+# NOTES : changed error message to be more descriptive...
+#
+# BUILD : 1.8.0 (1697)
+# BUGS  :  964
+# NOTES : Fixed ns resend for the resending of verification codes 
+#
+# BUILD : 1.8.0 (1692)
+# BUGS  :  964
+# NOTES : Prevent ns_access getting screwed over if using mysql - TODO more checks of mysql.c need to be done for stuff like this...
+#
+# BUILD : 1.8.0 (1665)
+# BUGS  :  965
+# NOTES : Add fix from Julien S. for bug #965, BotInfo::chancount was not being correctly initialised correctly, thanks :)
+#
+#
+# Migration to Sourceforge SVN has changed revision numbers. (Please see version.log.old)
