@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import re
 
 class user:
     
@@ -65,7 +66,7 @@ def get_users(filename):
 
             if line[0:2] != "->":
                split = line.split(' ')
-               u.name = split[0]
+               u.name = re.escape(split[0])
 
                u.seen = split[3]
                u.registered = split[2]
@@ -75,7 +76,7 @@ def get_users(filename):
                     u.pw = line.split(' ')[1]
 
                 if line[0:6] == "->LINK":
-                    u.link = line.split(' ')[1]
+                    u.link = re.escape(line.split(' ')[1])
                         
         users.append(u)
     

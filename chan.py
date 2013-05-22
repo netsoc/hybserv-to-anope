@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+import re
+
 class chan:
     def __init__(self):
         self.autodeop = "999"
@@ -20,6 +22,8 @@ class chan:
         self.founder = ""
         self.pw = ""
         self.founded = "0"
+        self.successor = ""
+        self.topic = ""
 
         self.alist = []
 
@@ -69,9 +73,10 @@ class chan:
 
         retval += "INSERT INTO `anope_cs_info` (name, founder, successor, founderpass, descr, url, email, " +\
             "last_topic, last_topic_setter, forbidby, forbidreason, mlock_key, mlock_flood, mlock_redirect, " +\
-            "entry_message, time_registered) VALUES ('" + self.channel + "', '" + self.founder + "', '', " +\
+            "entry_message, time_registered) VALUES ('" + self.channel + "', '" + self.founder + "', " +\
+            "'" + self.successor + "', " +\
             "'" + self.pw + "\\0\\0\\0\\0\\0\\0\\0XXX\\0\\0\\0\\0\\0\\0\\0\\0\\0', '" + self.channel + "', " +\
-            "'', '', '', '', '', '', '', '', '', '', " + self.founded + ");\n"
+            "'', '', '" + self.topic + "', '', '', '', '', '', '', '', " + self.founded + ");\n"
 
         return retval 
 
@@ -103,11 +108,14 @@ def get_chans(filename):
         
         for line in c_str:
             line = line[:-1]
+
+            if line == "":
+                continue
             
 
             if line[0:2] != "->":
                 split = line.split(' ')
-                c.channel = split[0]
+                c.channel = re.escape(split[0])
                 c.founded = split[2]
             
             else:
@@ -127,15 +135,21 @@ def get_chans(filename):
                     c.cmdclear = split[12]
                     c.set = split[13]
                 
-                if line[0:8] == "->ACCESS":
+                elif line[0:8] == "->ACCESS":
                     split = line.split(' ')
-                    c.alist.append([split[1], split[2]])
+                    c.alist.append([re.escape(split[1]), split[2]])
 
-                if line[0:6] == "->FNDR":
-                    c.founder = line.split(' ')[1]
+                elif line[0:6] == "->FNDR":
+                    c.founder = re.escape(line.split(' ')[1])
                 
-                if line[0:6] == "->PASS":
+                elif line[0:6] == "->PASS":
                     c.pw = line.split(' ')[1]
+                
+                elif line[0:11] == "->SUCCESSOR":
+                    c.successor = re.escape(line.split(' ')[1])
+                
+                elif line[0:9] == "->TOPIC :":
+                    c.topic =  re.escape(line[9:])
 
 
 
