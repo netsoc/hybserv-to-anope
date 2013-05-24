@@ -25,8 +25,6 @@ class chan:
         self.successor = ""
         self.topic = ""
 
-        self.alist = []
-
     def __str__(self):
         retval = "INSERT INTO `anope_cs_levels` (channel, position, level) VALUES \n" +\
             "('" + self.channel + "',35,-10000),\n" +\
@@ -65,11 +63,6 @@ class chan:
             "('" + self.channel + "',2," + self.set + "),\n" +\
             "('" + self.channel + "',1," + self.autokick + "),\n" +\
             "('" + self.channel + "',0," + self.cmdinvite + ");\n"
-
-        for u in self.alist:
-            if u[0] != self.founder:
-                retval += "INSERT INTO `anope_cs_access` (level, display, channel) VALUES (" +\
-                    u[1] + ", '" + u[0] + "', '" + self.channel + "');\n" 
 
         retval += "INSERT INTO `anope_cs_info` (name, founder, successor, founderpass, descr, url, email, " +\
             "last_topic, last_topic_setter, forbidby, forbidreason, mlock_key, mlock_flood, mlock_redirect, " +\
@@ -135,10 +128,6 @@ def get_chans(filename):
                     c.cmdclear = split[12]
                     c.set = split[13]
                 
-                elif line[0:8] == "->ACCESS":
-                    split = line.split(' ')
-                    c.alist.append([re.escape(split[1]), split[2]])
-
                 elif line[0:6] == "->FNDR":
                     c.founder = re.escape(line.split(' ')[1])
                 
