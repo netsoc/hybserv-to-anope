@@ -1,0 +1,52 @@
+#! /bin/sh
+#
+# Anope irc services init script
+#
+# Author:	Tom Mason <wheybags@wheybags.com>
+#
+
+
+### BEGIN INIT INFO
+# Provides:          anope
+# Required-Start:    $syslog
+# Required-Stop:     $syslog
+# Should-Start:      $local_fs $network $named
+# Should-Stop:       $local_fs $network $named
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Anope daemon init.d script
+# Description:       Use to manage the Anope daemon.
+### END INIT INFO
+
+
+
+set -e
+
+ANOPEDIR=/etc/anope/
+ANOPEUSER=anope
+cd $ANOPEDIR
+
+case "$1" in
+  start)
+	sudo -u $ANOPEUSER ./anoperc start	
+	;;
+  stop)
+	sudo -u $ANOPEUSER ./anoperc stop
+	;;
+  reload|force-reload)
+  	sudo -u $ANOPEUSER ./anoperc rehash
+	;;
+  restart)
+	sudo -u $ANOPEUSER ./anoperc restart
+	;;
+  status)
+	sudo -u $ANOPEUSER ./anoperc status
+	;;
+  *)
+	echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload|status}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
+
