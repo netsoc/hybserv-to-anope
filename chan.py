@@ -129,13 +129,13 @@ def get_chans(filename):
                     c.set = split[13]
                 
                 elif line[0:6] == "->FNDR":
-                    c.founder = re.escape(line.split(' ')[1])
+                    c.founder = line.split(' ')[1]
                 
                 elif line[0:6] == "->PASS":
                     c.pw = line.split(' ')[1]
                 
                 elif line[0:11] == "->SUCCESSOR":
-                    c.successor = re.escape(line.split(' ')[1])
+                    c.successor = line.split(' ')[1]
                 
                 elif line[0:9] == "->TOPIC :":
                     c.topic =  re.escape(line[9:])

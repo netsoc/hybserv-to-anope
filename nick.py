@@ -66,7 +66,7 @@ def get_users(filename):
 
             if line[0:2] != "->":
                split = line.split(' ')
-               u.name = re.escape(split[0])
+               u.name = split[0]
 
                u.seen = split[3]
                u.registered = split[2]
