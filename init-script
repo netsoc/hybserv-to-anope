@@ -2,9 +2,26 @@
 #
 # Anope irc services init script
 #
+# 
 # Author:	Tom Mason <wheybags@wheybags.com>
+# Edited by: Kyle Kessler <kyleksslr@gmail.com>
 #
-
+#  ---------- PLEASE READ ALL OF BELOW ---------------
+# -This allows you to automatically start anope on boot after you enable the rc.local service 
+# sudo systemctl enable rc-local.service //enables rc-local.service which enables use of the "/etc/rc.local/" file
+#
+# Paste this line into /etc/rc.local without "" | "/etc/init.d/anope" 
+# Make a new file in /etc/init.d/ called "anope" paste this script in it, and chmod 775 it as sudo/su
+# ---I installed anope in the ~/services | /root/services | (default? directory)
+#
+# ----- Try the above first, if it doesn't work ------
+# You may need to change the owner of the /root/services ("~/services") I did but didn't test without doing it.
+# if so
+# Change the owner of the ~/services/ and subdirectories since you can only see it as "root"
+# You may need to change the chmod (I did, but i chmod first then owner, and owner made it appear to my normal user.)
+# Warning ^ may be dangerous and allow users to change your config files if you set it to 777 
+#
+#*I did not do extensive testing on the permissions|owner change*
 
 ### BEGIN INIT INFO
 # Provides:          anope
@@ -18,32 +35,31 @@
 # Description:       Use to manage the Anope daemon.
 ### END INIT INFO
 
-
+#Change ANOPEDIR to whatever your ./anoperc directory is!
 
 set -e
 
-ANOPEDIR=/etc/anope/
-ANOPEUSER=anope
+ANOPEDIR=/root/services/bin
 cd $ANOPEDIR
 
 case "$1" in
   start)
-	sudo -u $ANOPEUSER ./anoperc start	
+	./anoperc start	
 	;;
   stop)
-	sudo -u $ANOPEUSER ./anoperc stop
+	 ./anoperc stop
 	;;
   reload|force-reload)
-  	sudo -u $ANOPEUSER ./anoperc rehash
+  	./anoperc rehash
 	;;
   restart)
-	sudo -u $ANOPEUSER ./anoperc restart
+	./anoperc restart
 	;;
   status)
-	sudo -u $ANOPEUSER ./anoperc status
+ 	./anoperc status
 	;;
   *)
-	echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload|status}" >&2
+	echo "Usage: $SCRIPTNAME {start|stop|restart|reload|force-reload|status}" >&2 | ./anoperc start
 	exit 1
 	;;
 esac
